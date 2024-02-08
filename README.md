@@ -15,7 +15,10 @@ make
 # and remove ending |
 sed -i -e "s/|$//g" *.tbl
 
-# 03 import data via copy command
+# 03 create tables
+psql tpch -f schema.sql
+
+# 04 import data via copy command
 psql tpch -c "\\COPY nation FROM 'nation.tbl' WITH DELIMITER '|';"
 psql tpch -c "\\COPY part FROM 'part.tbl' WITH DELIMITER '|';"
 psql tpch -c "\\COPY customer FROM 'customer.tbl' WITH DELIMITER '|';"
@@ -26,7 +29,7 @@ psql tpch -c "\\COPY supplier FROM 'supplier.tbl' WITH DELIMITER '|';"
 psql tpch -c "\\COPY lineitem FROM 'lineitem.tbl' WITH DELIMITER '|';"
 
 cd ..
-# 04 run 22 queries
+# 05 run all queries
 psql tpch -f query.sql > result.txt
 # then check result
 grep Time results.txt
