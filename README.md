@@ -16,7 +16,7 @@ make
 sed -i -e "s/|$//g" *.tbl
 
 # 03 create tables
-psql tpch -f schema.sql
+psql tpch -f ../schema.sql
 
 # 04 import data via copy command
 psql tpch -c "\\COPY nation FROM 'nation.tbl' WITH DELIMITER '|';"
@@ -30,6 +30,7 @@ psql tpch -c "\\COPY lineitem FROM 'lineitem.tbl' WITH DELIMITER '|';"
 
 cd ..
 # 05 run all queries
+psql tpch -c "analyze;"
 psql tpch -f query.sql > result.txt
 # then check result
 grep Time results.txt
